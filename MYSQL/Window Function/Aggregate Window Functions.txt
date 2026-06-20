@@ -1,0 +1,122 @@
+Aggregate Window Functions : 
+
+mysql> select *,count(*) over(partition by department) as deptCount from employee;
++--------+----------+------+------------+--------+-----------+
+| emp_id | emp_name | age  | department | salary | deptCount |
++--------+----------+------+------------+--------+-----------+
+|      4 | Sneha    |   26 | Finance    |  60000 |         3 |
+|      7 | Vikas    |   32 | Finance    |  75000 |         3 |
+|     10 | Pooja    |   23 | Finance    |  50000 |         3 |
+|      2 | Priya    |   28 | HR         |  60000 |         3 |
+|      6 | Neha     |   24 | HR         |  50000 |         3 |
+|      9 | Rohit    |   31 | HR         |  90000 |         3 |
+|      1 | Amit     |   25 | IT         |  50000 |         4 |
+|      3 | Rahul    |   30 | IT         |  75000 |         4 |
+|      5 | Karan    |   29 | IT         |  90000 |         4 |
+|      8 | Anjali   |   27 | IT         |  60000 |         4 |
++--------+----------+------+------------+--------+-----------+
+10 rows in set (0.04 sec) 
+
+mysql> select *,sum(salary) over(partition by department) as sumSalaryDeptWise from employee;
++--------+----------+------+------------+--------+-------------------+
+| emp_id | emp_name | age  | department | salary | sumSalaryDeptWise |
++--------+----------+------+------------+--------+-------------------+
+|      4 | Sneha    |   26 | Finance    |  60000 |            185000 |
+|      7 | Vikas    |   32 | Finance    |  75000 |            185000 |
+|     10 | Pooja    |   23 | Finance    |  50000 |            185000 |
+|      2 | Priya    |   28 | HR         |  60000 |            200000 |
+|      6 | Neha     |   24 | HR         |  50000 |            200000 |
+|      9 | Rohit    |   31 | HR         |  90000 |            200000 |
+|      1 | Amit     |   25 | IT         |  50000 |            275000 |
+|      3 | Rahul    |   30 | IT         |  75000 |            275000 |
+|      5 | Karan    |   29 | IT         |  90000 |            275000 |
+|      8 | Anjali   |   27 | IT         |  60000 |            275000 |
++--------+----------+------+------------+--------+-------------------+
+10 rows in set (0.04 sec)
+
+mysql> select *,avg(salary) over(partition by department) as avgSalaryDeptWise from employee;
++--------+----------+------+------------+--------+-------------------+
+| emp_id | emp_name | age  | department | salary | avgSalaryDeptWise |
++--------+----------+------+------------+--------+-------------------+
+|      4 | Sneha    |   26 | Finance    |  60000 |        61666.6667 |
+|      7 | Vikas    |   32 | Finance    |  75000 |        61666.6667 |
+|     10 | Pooja    |   23 | Finance    |  50000 |        61666.6667 |
+|      2 | Priya    |   28 | HR         |  60000 |        66666.6667 |
+|      6 | Neha     |   24 | HR         |  50000 |        66666.6667 |
+|      9 | Rohit    |   31 | HR         |  90000 |        66666.6667 |
+|      1 | Amit     |   25 | IT         |  50000 |        68750.0000 |
+|      3 | Rahul    |   30 | IT         |  75000 |        68750.0000 |
+|      5 | Karan    |   29 | IT         |  90000 |        68750.0000 |
+|      8 | Anjali   |   27 | IT         |  60000 |        68750.0000 |
++--------+----------+------+------------+--------+-------------------+
+10 rows in set (0.05 sec)
+
+mysql> select *,avg(salary) over(partition by department) as avgSalaryDeptWise from employee;
++--------+----------+------+------------+--------+-------------------+
+| emp_id | emp_name | age  | department | salary | avgSalaryDeptWise |
++--------+----------+------+------------+--------+-------------------+
+|      4 | Sneha    |   26 | Finance    |  60000 |        61666.6667 |
+|      7 | Vikas    |   32 | Finance    |  75000 |        61666.6667 |
+|     10 | Pooja    |   23 | Finance    |  50000 |        61666.6667 |
+|      2 | Priya    |   28 | HR         |  60000 |        66666.6667 |
+|      6 | Neha     |   24 | HR         |  50000 |        66666.6667 |
+|      9 | Rohit    |   31 | HR         |  90000 |        66666.6667 |
+|      1 | Amit     |   25 | IT         |  50000 |        68750.0000 |
+|      3 | Rahul    |   30 | IT         |  75000 |        68750.0000 |
+|      5 | Karan    |   29 | IT         |  90000 |        68750.0000 |
+|      8 | Anjali   |   27 | IT         |  60000 |        68750.0000 |
++--------+----------+------+------------+--------+-------------------+
+10 rows in set (0.05 sec)
+
+
+mysql> select *,min(salary) over(partition by department) as deptMinSalary from employee;
++--------+----------+------+------------+--------+---------------+
+| emp_id | emp_name | age  | department | salary | deptMinSalary |
++--------+----------+------+------------+--------+---------------+
+|      4 | Sneha    |   26 | Finance    |  60000 |         50000 |
+|      7 | Vikas    |   32 | Finance    |  75000 |         50000 |
+|     10 | Pooja    |   23 | Finance    |  50000 |         50000 |
+|      2 | Priya    |   28 | HR         |  60000 |         50000 |
+|      6 | Neha     |   24 | HR         |  50000 |         50000 |
+|      9 | Rohit    |   31 | HR         |  90000 |         50000 |
+|      1 | Amit     |   25 | IT         |  50000 |         50000 |
+|      3 | Rahul    |   30 | IT         |  75000 |         50000 |
+|      5 | Karan    |   29 | IT         |  90000 |         50000 |
+|      8 | Anjali   |   27 | IT         |  60000 |         50000 |
++--------+----------+------+------------+--------+---------------+
+10 rows in set (0.04 sec)
+
+
+mysql> select *,max(age) over(partition by department) as deptMaxSalary from employee;
++--------+----------+------+------------+--------+---------------+
+| emp_id | emp_name | age  | department | salary | deptMaxSalary |
++--------+----------+------+------------+--------+---------------+
+|      4 | Sneha    |   26 | Finance    |  60000 |            32 |
+|      7 | Vikas    |   32 | Finance    |  75000 |            32 |
+|     10 | Pooja    |   23 | Finance    |  50000 |            32 |
+|      2 | Priya    |   28 | HR         |  60000 |            31 |
+|      6 | Neha     |   24 | HR         |  50000 |            31 |
+|      9 | Rohit    |   31 | HR         |  90000 |            31 |
+|      1 | Amit     |   25 | IT         |  50000 |            30 |
+|      3 | Rahul    |   30 | IT         |  75000 |            30 |
+|      5 | Karan    |   29 | IT         |  90000 |            30 |
+|      8 | Anjali   |   27 | IT         |  60000 |            30 |
++--------+----------+------+------------+--------+---------------+
+10 rows in set (0.04 sec)
+
+mysql> select *,max(salary) over(partition by department) as deptMaxSalary from employee;
++--------+----------+------+------------+--------+---------------+
+| emp_id | emp_name | age  | department | salary | deptMaxSalary |
++--------+----------+------+------------+--------+---------------+
+|      4 | Sneha    |   26 | Finance    |  60000 |         75000 |
+|      7 | Vikas    |   32 | Finance    |  75000 |         75000 |
+|     10 | Pooja    |   23 | Finance    |  50000 |         75000 |
+|      2 | Priya    |   28 | HR         |  60000 |         90000 |
+|      6 | Neha     |   24 | HR         |  50000 |         90000 |
+|      9 | Rohit    |   31 | HR         |  90000 |         90000 |
+|      1 | Amit     |   25 | IT         |  50000 |         90000 |
+|      3 | Rahul    |   30 | IT         |  75000 |         90000 |
+|      5 | Karan    |   29 | IT         |  90000 |         90000 |
+|      8 | Anjali   |   27 | IT         |  60000 |         90000 |
++--------+----------+------+------------+--------+---------------+
+10 rows in set (0.00 sec)

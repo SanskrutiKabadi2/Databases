@@ -1,0 +1,60 @@
+Ranking Window Functions : 
+
+Function	Purpose
+ROW_NUMBER()	Unique row number
+RANK()	        Rank with gaps
+DENSE_RANK()	Rank without gaps
+
+
+
+mysql> select *, RANK() over(order by salary)as rnk from employee;
++--------+----------+------+------------+--------+-----+
+| emp_id | emp_name | age  | department | salary | rnk |
++--------+----------+------+------------+--------+-----+
+|      1 | Amit     |   25 | IT         |  50000 |   1 |
+|      6 | Neha     |   24 | HR         |  50000 |   1 |
+|     10 | Pooja    |   23 | Finance    |  50000 |   1 |
+|      2 | Priya    |   28 | HR         |  60000 |   4 |
+|      4 | Sneha    |   26 | Finance    |  60000 |   4 |
+|      8 | Anjali   |   27 | IT         |  60000 |   4 |
+|      3 | Rahul    |   30 | IT         |  75000 |   7 |
+|      7 | Vikas    |   32 | Finance    |  75000 |   7 |
+|      5 | Karan    |   29 | IT         |  90000 |   9 |
+|      9 | Rohit    |   31 | HR         |  90000 |   9 |
++--------+----------+------+------------+--------+-----+
+10 rows in set (0.00 sec)
+
+
+mysql> select *,ROW_NUMBER() over(order by age) as rnk from employee;
++--------+----------+------+------------+--------+-----+
+| emp_id | emp_name | age  | department | salary | rnk |
++--------+----------+------+------------+--------+-----+
+|     10 | Pooja    |   23 | Finance    |  50000 |   1 |
+|      6 | Neha     |   24 | HR         |  50000 |   2 |
+|      1 | Amit     |   25 | IT         |  50000 |   3 |
+|      4 | Sneha    |   26 | Finance    |  60000 |   4 |
+|      8 | Anjali   |   27 | IT         |  60000 |   5 |
+|      2 | Priya    |   28 | HR         |  60000 |   6 |
+|      5 | Karan    |   29 | IT         |  90000 |   7 |
+|      3 | Rahul    |   30 | IT         |  75000 |   8 |
+|      9 | Rohit    |   31 | HR         |  90000 |   9 |
+|      7 | Vikas    |   32 | Finance    |  75000 |  10 |
++--------+----------+------+------------+--------+-----+
+10 rows in set (0.04 sec)
+
+mysql> select *,DENSE_RANK() over(order by salary) as rnk from employee;
++--------+----------+------+------------+--------+-----+
+| emp_id | emp_name | age  | department | salary | rnk |
++--------+----------+------+------------+--------+-----+
+|      1 | Amit     |   25 | IT         |  50000 |   1 |
+|      6 | Neha     |   24 | HR         |  50000 |   1 |
+|     10 | Pooja    |   23 | Finance    |  50000 |   1 |
+|      2 | Priya    |   28 | HR         |  60000 |   2 |
+|      4 | Sneha    |   26 | Finance    |  60000 |   2 |
+|      8 | Anjali   |   27 | IT         |  60000 |   2 |
+|      3 | Rahul    |   30 | IT         |  75000 |   3 |
+|      7 | Vikas    |   32 | Finance    |  75000 |   3 |
+|      5 | Karan    |   29 | IT         |  90000 |   4 |
+|      9 | Rohit    |   31 | HR         |  90000 |   4 |
++--------+----------+------+------------+--------+-----+
+10 rows in set (0.00 sec)
