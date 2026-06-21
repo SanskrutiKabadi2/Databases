@@ -1,0 +1,98 @@
+Value window functions :
+Value Window Functions return a value from another row in the window rather than performing an aggregate.
+
+1. LAG() 
+
+mysql> SELECT emp_name, salary, LAG(salary) OVER(ORDER BY salary) AS prev_salary FROM employee;
++----------+--------+-------------+
+| emp_name | salary | prev_salary |
++----------+--------+-------------+
+| Amit     |  50000 |        NULL |
+| Neha     |  50000 |       50000 |
+| Pooja    |  50000 |       50000 |
+| Priya    |  60000 |       50000 |
+| Sneha    |  60000 |       60000 |
+| Anjali   |  60000 |       60000 |
+| Rahul    |  75000 |       60000 |
+| Vikas    |  75000 |       75000 |
+| Karan    |  90000 |       75000 |
+| Rohit    |  90000 |       90000 |
++----------+--------+-------------+
+10 rows in set (0.04 sec)
+
+2. LEAD()
+
+mysql> SELECT emp_name, salary, LEAD(salary) OVER(ORDER BY salary) AS next_salary FROM employee;
++----------+--------+-------------+
+| emp_name | salary | next_salary |
++----------+--------+-------------+
+| Amit     |  50000 |       50000 |
+| Neha     |  50000 |       50000 |
+| Pooja    |  50000 |       60000 |
+| Priya    |  60000 |       60000 |
+| Sneha    |  60000 |       60000 |
+| Anjali   |  60000 |       75000 |
+| Rahul    |  75000 |       75000 |
+| Vikas    |  75000 |       90000 |
+| Karan    |  90000 |       90000 |
+| Rohit    |  90000 |        NULL |
++----------+--------+-------------+
+10 rows in set (0.00 sec)
+
+3. FIRST_VALUE()
+
+mysql> SELECT emp_name, salary, FIRST_VALUE(salary) OVER(ORDER BY salary) AS first_salary FROM employee;
++----------+--------+--------------+
+| emp_name | salary | first_salary |
++----------+--------+--------------+
+| Amit     |  50000 |        50000 |
+| Neha     |  50000 |        50000 |
+| Pooja    |  50000 |        50000 |
+| Priya    |  60000 |        50000 |
+| Sneha    |  60000 |        50000 |
+| Anjali   |  60000 |        50000 |
+| Rahul    |  75000 |        50000 |
+| Vikas    |  75000 |        50000 |
+| Karan    |  90000 |        50000 |
+| Rohit    |  90000 |        50000 |
++----------+--------+--------------+
+10 rows in set (0.04 sec)
+
+4. LAST_VALUE()
+
+mysql> SELECT emp_name, salary, LAST_VALUE(salary) OVER(ORDER BY salary ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS last_salary FROM employee;
++----------+--------+-------------+
+| emp_name | salary | last_salary |
++----------+--------+-------------+
+| Amit     |  50000 |       90000 |
+| Neha     |  50000 |       90000 |
+| Pooja    |  50000 |       90000 |
+| Priya    |  60000 |       90000 |
+| Sneha    |  60000 |       90000 |
+| Anjali   |  60000 |       90000 |
+| Rahul    |  75000 |       90000 |
+| Vikas    |  75000 |       90000 |
+| Karan    |  90000 |       90000 |
+| Rohit    |  90000 |       90000 |
++----------+--------+-------------+
+10 rows in set (0.00 sec)
+
+5. NTH_VALUE() 
+
+mysql> SELECT emp_name, salary, NTH_VALUE(salary, 3) OVER(ORDER BY salary ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS third_salary FROM employee;
++----------+--------+--------------+
+| emp_name | salary | third_salary |
++----------+--------+--------------+
+| Amit     |  50000 |        50000 |
+| Neha     |  50000 |        50000 |
+| Pooja    |  50000 |        50000 |
+| Priya    |  60000 |        50000 |
+| Sneha    |  60000 |        50000 |
+| Anjali   |  60000 |        50000 |
+| Rahul    |  75000 |        50000 |
+| Vikas    |  75000 |        50000 |
+| Karan    |  90000 |        50000 |
+| Rohit    |  90000 |        50000 |
++----------+--------+--------------+
+10 rows in set (0.00 sec)
+
